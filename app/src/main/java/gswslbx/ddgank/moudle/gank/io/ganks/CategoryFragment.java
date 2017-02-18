@@ -47,12 +47,11 @@ public class CategoryFragment extends Fragment implements CategoryContract.View,
         mCategoryName = bundle.getString("mCategoryName");
     }
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment, container, false);
+        View view = inflater.inflate(R.layout.ganks_frag, container, false);
         ButterKnife.bind(this, view);
 
         mSwipeRefreshLayout.setColorSchemeResources(
@@ -97,6 +96,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View,
         super.onDestroy();
         mPresenter.unsubscribe();
     }
+
 
     public static CategoryFragment newInstance(String mCategoryName) {
         CategoryFragment categoryFragment = new CategoryFragment();

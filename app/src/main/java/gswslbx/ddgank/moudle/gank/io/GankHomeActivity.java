@@ -57,7 +57,7 @@ public class GankHomeActivity extends BaseActivity implements GankHomeContract.V
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gank_home);
+        setContentView(R.layout.gank_home_act);
         ButterKnife.bind(this);
         initView();
         setPresenter(mHomePresenter);

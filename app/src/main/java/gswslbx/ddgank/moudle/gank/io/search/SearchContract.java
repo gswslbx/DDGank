@@ -19,9 +19,9 @@ public interface SearchContract {
 
         void addSearchItems(GanHuo searchResult);//
 
-        void showSwipLoading();//
+        void showSwipeLoading();//
 
-        void hideSwipLoading();//
+        void hideSwipeLoading();//
 
         void showTip(String msg);//
 

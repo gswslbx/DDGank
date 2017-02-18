@@ -18,16 +18,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import gswslbx.ddgank.R;
-import gswslbx.ddgank.moudle.BaseActivity;
 import gswslbx.ddgank.bean.GanHuo;
-import gswslbx.ddgank.moudle.gank.io.search.SearchContract;
-import gswslbx.ddgank.moudle.gank.io.search.SearchListAdapter;
-import gswslbx.ddgank.moudle.gank.io.search.SearchPresenter;
-import gswslbx.ddgank.utils.DisplayUtils;
-import gswslbx.ddgank.utils.KeyboardUtils;
+import gswslbx.ddgank.moudle.BaseActivity;
 import gswslbx.ddgank.moudle.widget.OnLoadMoreListener;
 import gswslbx.ddgank.moudle.widget.RecycleViewDivider;
 import gswslbx.ddgank.moudle.widget.RecyclerViewWithFooter;
+import gswslbx.ddgank.utils.DisplayUtils;
+import gswslbx.ddgank.utils.KeyboardUtils;
 
 /**
  * Created by Gswslbx on 2017/2/16.
@@ -61,12 +58,18 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.gank_search_act);
         ButterKnife.bind(this);
         initView();
         mFireWork.bindEditText(mEdSearch);
         setPresenter(mSearchPresenter);
         mSearchPresenter.subscribe();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSearchPresenter.unsubscribe();
     }
 
     private void initView() {
@@ -109,12 +112,6 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mSearchPresenter.unsubscribe();
-    }
-
     //
     @Override
     public void setToolbarBackgroundColor(int color) {
@@ -151,12 +148,12 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
 
 
     @Override
-    public void showSwipLoading() {
+    public void showSwipeLoading() {
         mSwipeRefreshLayoutSearch.setRefreshing(true);
     }
 
     @Override
-    public void hideSwipLoading() {
+    public void hideSwipeLoading() {
         mSwipeRefreshLayoutSearch.setRefreshing(false);
     }
 
@@ -191,7 +188,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
         mRecyclerViewSearch.setEmpty();
         mEdSearch.setText("");
         KeyboardUtils.showSoftInput(this, mEdSearch);
-        hideSwipLoading();
+        hideSwipeLoading();
         mSearchPresenter.unsubscribe();
     }
 

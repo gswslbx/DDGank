@@ -44,7 +44,7 @@ public class SearchPresenter implements SearchContract.Presenter {
             return;
         }
         if (!isLoadMore) {
-            mView.showSwipLoading();
+            mView.showSwipeLoading();
         }
         mSubscriptions.add(//添加订阅
                 DataRetrofit.getRetrofitGank()
@@ -64,7 +64,7 @@ public class SearchPresenter implements SearchContract.Presenter {
                             @Override
                             public void onError(Throwable e) {
                                 mView.showSearchFail("搜索出错了，请重试", searchText, page, isLoadMore);
-                                mView.hideSwipLoading();
+                                mView.hideSwipeLoading();
                             }
 
                             @Override
@@ -72,7 +72,7 @@ public class SearchPresenter implements SearchContract.Presenter {
                                 if (!isLoadMore) {
                                     if (searchResult == null || searchResult.getResults().size() == 0) {
                                         mView.showTip("没有搜索到结果");
-                                        mView.hideSwipLoading();
+                                        mView.hideSwipeLoading();
                                         mView.setEmpty();
                                         return;
                                     }

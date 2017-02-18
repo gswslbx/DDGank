@@ -29,6 +29,7 @@ public class SplashPresenter implements SplashContract.Presenter {
 
     public SplashPresenter(@NonNull SplashContract.View splashView) {
         mSplashView = splashView;
+        mSplashView.setPresenter(this);
         mSubscriptions = new CompositeSubscription();
     }
 
