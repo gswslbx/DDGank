@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+              android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/iv_splash_image"
@@ -13,11 +13,12 @@
         android:id="@+id/tv_splash_name"
         android:textSize="15dp"
         android:textColor="#ffffff"
-        android:layout_gravity="center_horizontal|bottom"
-        android:gravity="center"
         android:paddingRight="20dp"
         android:paddingLeft="20dp"
-        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-</merge>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>
