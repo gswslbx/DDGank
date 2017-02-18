@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">天天干货</string>
+    <string name="home_search">搜索干货(｡◕∀◕｡)</string>
+    <string name="splash_textView">穿越卢安瓜河的象群，赞比亚 (© Frans Lanting\/Gallery Stock)</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="search_tip">随便搜索试试(｡◕∀◕｡))</string>
+    <string name="rv_with_footer_pull_load_more">上拉或点击加载更多</string>
+    <string name="rv_with_footer_loading">加载中…</string>
+    <string name="rv_with_footer_empty">没有数据啦</string>
+</resources>
