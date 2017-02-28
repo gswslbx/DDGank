@@ -29,6 +29,7 @@ public class SplashPresenter implements SplashContract.Presenter {
 
     public SplashPresenter(@NonNull SplashContract.View splashView) {
         mSplashView = splashView;
+        //调用setPresenter方法将mSplashPresenter传递给mSplashFragment，使V得以调用P来进行业务逻辑的操作
         mSplashView.setPresenter(this);
         mSubscriptions = new CompositeSubscription();
     }

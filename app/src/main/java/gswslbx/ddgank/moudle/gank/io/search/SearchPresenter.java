@@ -24,6 +24,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     public SearchPresenter(SearchContract.View view) {
         mView = view;
+        mView.setPresenter(this);
     }
 
     @Override

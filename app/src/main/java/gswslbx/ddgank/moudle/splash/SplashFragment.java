@@ -67,6 +67,7 @@ public class SplashFragment extends BaseFragment implements SplashContract.View 
     @Override
     public void toGankActivity() {
         startActivity(new Intent(getActivity(), GankHomeActivity.class));
+        getActivity().finish();
     }
 
     @Override

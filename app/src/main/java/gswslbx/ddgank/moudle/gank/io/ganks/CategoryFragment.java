@@ -30,10 +30,10 @@ public class CategoryFragment extends Fragment implements CategoryContract.View,
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
-    private CategoryListAdapter mAndroidListAdapter;
+    private CategoryListAdapter mGankListAdapter;
     private MeiziListAdapter mMeiziListAdapter;
 
-    private CategoryContract.Presenter mPresenter = new CategoryPresenter(this);
+    private CategoryContract.Presenter mPresenter;
 
     private int mPage = 1;
 
@@ -72,11 +72,11 @@ public class CategoryFragment extends Fragment implements CategoryContract.View,
             mRecyclerView.setOnLoadMoreListener(this);
             mRecyclerView.setEmpty();
         } else {
-            mAndroidListAdapter = new CategoryListAdapter(getContext());
+            mGankListAdapter = new CategoryListAdapter(getContext());
 
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             mRecyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.HORIZONTAL));
-            mRecyclerView.setAdapter(mAndroidListAdapter);
+            mRecyclerView.setAdapter(mGankListAdapter);
             mRecyclerView.setOnLoadMoreListener(this);
             mRecyclerView.setEmpty();
         }
@@ -87,7 +87,6 @@ public class CategoryFragment extends Fragment implements CategoryContract.View,
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setPresenter(mPresenter);
         mPresenter.subscribe();
     }
 
@@ -100,7 +99,6 @@ public class CategoryFragment extends Fragment implements CategoryContract.View,
 
     public static CategoryFragment newInstance(String mCategoryName) {
         CategoryFragment categoryFragment = new CategoryFragment();
-
         Bundle bundle = new Bundle();
         bundle.putString("mCategoryName", mCategoryName);
 
@@ -159,8 +157,8 @@ public class CategoryFragment extends Fragment implements CategoryContract.View,
             mMeiziListAdapter.mData = ganHuo.getResults();
             mMeiziListAdapter.notifyDataSetChanged();
         }else{
-            mAndroidListAdapter.mData = ganHuo.getResults();
-            mAndroidListAdapter.notifyDataSetChanged();
+            mGankListAdapter.mData = ganHuo.getResults();
+            mGankListAdapter.notifyDataSetChanged();
         }
     }
 
@@ -170,8 +168,8 @@ public class CategoryFragment extends Fragment implements CategoryContract.View,
             mMeiziListAdapter.mData.addAll(ganHuo.getResults());
             mMeiziListAdapter.notifyDataSetChanged();
         }else{
-            mAndroidListAdapter.mData.addAll(ganHuo.getResults());
-            mAndroidListAdapter.notifyDataSetChanged();
+            mGankListAdapter.mData.addAll(ganHuo.getResults());
+            mGankListAdapter.notifyDataSetChanged();
         }
     }
 

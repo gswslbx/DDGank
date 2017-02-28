@@ -21,8 +21,9 @@ public class CategoryPresenter implements CategoryContract.Presenter {
     @NonNull
     private CompositeSubscription mSubscriptions;
 
-    public CategoryPresenter(CategoryContract.View androidView) {
-        mCategoryView = androidView;
+    public CategoryPresenter(CategoryContract.View gankView) {
+        mCategoryView = gankView;
+        mCategoryView.setPresenter(this);
         mSubscriptions = new CompositeSubscription();
     }
 
@@ -60,7 +61,7 @@ public class CategoryPresenter implements CategoryContract.Presenter {
                             @Override
                             public void onError(Throwable e) {
                                 mCategoryView.hideSwipLoading();
-                                mCategoryView.getItemsFail(mCategoryView.getCategoryName() + " 列表数据获取失败，请重试。201"
+                                mCategoryView.getItemsFail(mCategoryView.getCategoryName() + " 数据获取失败，请重试"
                                         , number, page, isRefresh);
                             }
 

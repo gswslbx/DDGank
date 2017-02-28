@@ -9,11 +9,9 @@ import gswslbx.ddgank.moudle.BaseActivity;
 /**
  * Created by Gswslbx on 2017/2/14.
  * 启动页 加载必应每日图片
- * 注意 返回的url可能不全
  */
 
 public class SplashActivity extends BaseActivity {
-    private SplashContract.Presenter mSplashPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,10 +25,8 @@ public class SplashActivity extends BaseActivity {
             addFragmentToActivity(getSupportFragmentManager(),
                     mSplashFragment, R.id.act_splash);
         }
-
-        mSplashPresenter = new SplashPresenter(mSplashFragment);
-
-        mSplashFragment.setPresenter(mSplashPresenter);
+        //实例化mSplashPresenter的同时传递mSplashFragment，使P得以操作V
+        new SplashPresenter(mSplashFragment);
     }
 
     @Override
