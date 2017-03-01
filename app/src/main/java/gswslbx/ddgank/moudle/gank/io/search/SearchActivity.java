@@ -9,8 +9,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.wayww.edittextfirework.FireworkView;
 
@@ -64,6 +67,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
         mFireWork.bindEditText(mEdSearch);
         setPresenter(mSearchPresenter);
         mSearchPresenter.subscribe();
+        getKeyboardAction();
     }
 
     @Override
@@ -112,13 +116,27 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
 
     }
 
-    //
+    @Override
+    public void getKeyboardAction() {
+        mEdSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_SEARCH
+                        || i == EditorInfo.IME_ACTION_DONE
+                        || (keyEvent != null && KeyEvent.KEYCODE_ENTER == keyEvent.getKeyCode()
+                        && KeyEvent.ACTION_DOWN == keyEvent.getAction())) {
+                    search();//搜索
+                }
+                return false;
+            }
+        });
+    }
+
     @Override
     public void setToolbarBackgroundColor(int color) {
         mAppbarSearch.setBackgroundColor(color);
     }
 
-    //
     @Override
     public void showSearchFail(String failMsg, final String searchText, final int page, final boolean isLoadMore) {
         Snackbar.make(mSwipeRefreshLayoutSearch, failMsg, Snackbar.LENGTH_LONG).setAction("重试", new View.OnClickListener() {
@@ -129,7 +147,6 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
         }).show();
     }
 
-    //
     @Override
     public void setSearchItems(GanHuo searchResult) {
         mSearchListAdapter.mData = searchResult.getResults();
@@ -137,15 +154,11 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
         mSwipeRefreshLayoutSearch.setRefreshing(false);
     }
 
-    /**
-     * @param searchResult
-     */
     @Override
     public void addSearchItems(GanHuo searchResult) {
         mSearchListAdapter.mData.addAll(searchResult.getResults());
         mSearchListAdapter.notifyDataSetChanged();
     }
-
 
     @Override
     public void showSwipeLoading() {
@@ -159,7 +172,13 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
 
     @Override
     public void showTip(String msg) {
-        Snackbar.make(mRecyclerViewSearch, msg, Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(mRecyclerViewSearch, msg, Snackbar.LENGTH_SHORT).setAction("重输",
+                new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                KeyboardUtils.showSoftInput(getApplicationContext(), mEdSearch);
+            }
+        }).show();
     }
 
     @Override

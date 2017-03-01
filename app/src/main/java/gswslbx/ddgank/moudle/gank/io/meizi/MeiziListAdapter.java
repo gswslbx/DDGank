@@ -2,9 +2,6 @@ package gswslbx.ddgank.moudle.gank.io.meizi;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
 
 import gswslbx.ddgank.R;
 import gswslbx.ddgank.bean.GanHuo;
@@ -22,16 +19,27 @@ public class MeiziListAdapter extends CommonAdapter4RecyclerView<GanHuo.Result> 
         super(context, null, R.layout.item_meizi);
     }
 
+    /**
+     *
+     * @param holder
+     * @param gankResult
+     */
     @Override
     public void convert(CommonHolder4RecyclerView holder, GanHuo.Result gankResult) {
         if (gankResult != null) {
-            ImageView imageView = holder.getView(R.id.iv_meizi);
-            Glide.with(mContext).load(gankResult.getUrl()).into(imageView);
-//            holder.setImageView(mContext, R.id.tv_item_time, gankResult.getUrl());
+//            ImageView imageView = holder.getView(R.id.iv_meizi);
+//            Glide.with(mContext).load(gankResult.getUrl()).into(imageView);
+            holder.setImageViewImg(mContext, R.id.iv_meizi, gankResult.getUrl());
             holder.setOnClickListener(this, R.id.ll_item_meizi);
         }
     }
 
+    /**
+     *
+     * @param v
+     * @param position
+     * @param holder
+     */
     @Override
     public void onClick(View v, int position, CommonHolder4RecyclerView holder) {
         String uri = mData.get(position).getUrl();

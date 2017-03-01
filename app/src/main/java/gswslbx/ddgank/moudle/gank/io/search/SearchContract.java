@@ -9,31 +9,32 @@ import gswslbx.ddgank.moudle.BaseView;
  */
 public interface SearchContract {
     interface View extends BaseView<Presenter> {
+        void getKeyboardAction();//监听键盘回车事件
 
-        void setToolbarBackgroundColor(int color);//
+        void setToolbarBackgroundColor(int color);//设置Toolbar的背景色
 
-        //
+        //搜索失败的提示
         void showSearchFail(String failMsg, String searchText, int page, boolean isLoadMore);
 
-        void setSearchItems(GanHuo searchResult);//
+        void setSearchItems(GanHuo searchResult);//设置搜索结果
 
-        void addSearchItems(GanHuo searchResult);//
+        void addSearchItems(GanHuo searchResult);//添加搜索结果
 
-        void showSwipeLoading();//
+        void showSwipeLoading();//显示滑动加载动画
 
-        void hideSwipeLoading();//
+        void hideSwipeLoading();//隐藏滑动加载动画
 
-        void showTip(String msg);//
+        void showTip(String msg);//显示提示
 
-        void setLoadMoreIsLastPage();//
+        void setLoadMoreIsLastPage();//加载到最后一页了
 
-        void setEmpty();//
+        void setEmpty();//设置空页
 
-        void setLoading();//
+        void setLoading();//设置加载ing
     }
 
     interface Presenter extends BasePresenter {
-        //
+        //搜索
         void search(String searchText, int page, boolean isLoadMore);
     }
 }

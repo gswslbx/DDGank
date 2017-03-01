@@ -30,6 +30,7 @@ public class SearchPresenter implements SearchContract.Presenter {
     @Override
     public void subscribe() {
         mSubscriptions = new CompositeSubscription();
+        //同时设置搜索页Toolbar的背景色
         mView.setToolbarBackgroundColor(ThemeManage.INSTANCE.getColorPrimary());
     }
 
@@ -88,8 +89,6 @@ public class SearchPresenter implements SearchContract.Presenter {
                                 }
 
                             }
-
-
                         }));
     }
 }

@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * Created by Gswslbx on 2017/2/16.
+ * 通用的Adapter
  */
 public abstract class CommonAdapter4RecyclerView<T> extends RecyclerView.Adapter {
     public Context mContext;

@@ -1,14 +1,19 @@
 package gswslbx.ddgank.moudle.common;
 
+import android.content.Context;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 /**
- * BaseView
+ * 通用的Holder
  */
 public class CommonHolder4RecyclerView extends RecyclerView.ViewHolder {
 
@@ -25,7 +30,6 @@ public class CommonHolder4RecyclerView extends RecyclerView.ViewHolder {
 
     /**
      * 得到item上的控件
-     *
      * @param viewId 控件的id
      * @return 对应的控件
      */
@@ -40,6 +44,12 @@ public class CommonHolder4RecyclerView extends RecyclerView.ViewHolder {
 
     }
 
+    /**
+     *设置TextView的内容
+     * @param textViewId
+     * @param text
+     * @return
+     */
     public CommonHolder4RecyclerView setTextViewText(@IdRes int textViewId, String text) {
         TextView tv = getView(textViewId);
         if (!TextUtils.isEmpty(text)) {
@@ -50,12 +60,25 @@ public class CommonHolder4RecyclerView extends RecyclerView.ViewHolder {
         return this;
     }
 
-//    public CommonHolder4RecyclerView setImageView(@NonNull Context context, @IdRes int imageViewId, String imageUrl) {
-//        ImageView imageView = getView(imageViewId);
-//        Glide.with(context).load(imageUrl).into(imageView);
-//        return this;
-//    }
+    /**
+     *
+     * @param context
+     * @param imageViewId
+     * @param imageUrl
+     * @return
+     */
+    public CommonHolder4RecyclerView setImageViewImg(@NonNull Context context, @IdRes int imageViewId, String imageUrl) {
+        ImageView imageView = getView(imageViewId);
+        Glide.with(context).load(imageUrl).into(imageView);
+        return this;
+    }
 
+    /**
+     *
+     * @param clickListener
+     * @param viewIds
+     * @return
+     */
     public CommonHolder4RecyclerView setOnClickListener(ListenerWithPosition.OnClickWithPositionListener clickListener, @IdRes int... viewIds) {
         ListenerWithPosition listener = new ListenerWithPosition(position, this);
         listener.setOnClickListener(clickListener);

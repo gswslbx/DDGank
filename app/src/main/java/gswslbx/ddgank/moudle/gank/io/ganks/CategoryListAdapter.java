@@ -23,6 +23,11 @@ public class CategoryListAdapter extends CommonAdapter4RecyclerView<GanHuo.Resul
         super(context, null, R.layout.item_common);
     }
 
+    /**
+     *
+     * @param holder
+     * @param gankResult
+     */
     @Override
     public void convert(CommonHolder4RecyclerView holder, GanHuo.Result gankResult) {
         if (gankResult != null) {
@@ -33,6 +38,12 @@ public class CategoryListAdapter extends CommonAdapter4RecyclerView<GanHuo.Resul
         }
     }
 
+    /**
+     *
+     * @param v
+     * @param position
+     * @param holder
+     */
     @Override
     public void onClick(View v, int position, CommonHolder4RecyclerView holder) {
         Uri uri = Uri.parse(mData.get(position).getUrl());
