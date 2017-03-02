@@ -14,14 +14,14 @@ import rx.subscriptions.CompositeSubscription;
  * Created by Gswslbx on 2017/2/16.
  */
 
-public class CategoryPresenter implements CategoryContract.Presenter {
+public class GanksPresenter implements GanksContract.Presenter {
 
-    private CategoryContract.View mCategoryView;
+    private GanksContract.View mCategoryView;
 
     @NonNull
     private CompositeSubscription mSubscriptions;
 
-    public CategoryPresenter(CategoryContract.View gankView) {
+    public GanksPresenter(GanksContract.View gankView) {
         mCategoryView = gankView;
         mCategoryView.setPresenter(this);
         mSubscriptions = new CompositeSubscription();

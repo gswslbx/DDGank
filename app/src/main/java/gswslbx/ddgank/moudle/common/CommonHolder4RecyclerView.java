@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 /**
- * 通用的Holder
+ * 通用的ViewHolderHolder
  */
 public class CommonHolder4RecyclerView extends RecyclerView.ViewHolder {
 
@@ -46,8 +46,8 @@ public class CommonHolder4RecyclerView extends RecyclerView.ViewHolder {
 
     /**
      *设置TextView的内容
-     * @param textViewId
-     * @param text
+     * @param textViewId 控件的id
+     * @param text 要显示的文字
      * @return
      */
     public CommonHolder4RecyclerView setTextViewText(@IdRes int textViewId, String text) {
@@ -61,25 +61,27 @@ public class CommonHolder4RecyclerView extends RecyclerView.ViewHolder {
     }
 
     /**
-     *
-     * @param context
-     * @param imageViewId
-     * @param imageUrl
+     *设置ImageView的图片
+     * @param context 当前上下文
+     * @param imageViewId 控件的id
+     * @param imageUrl 图片的url
      * @return
      */
-    public CommonHolder4RecyclerView setImageViewImg(@NonNull Context context, @IdRes int imageViewId, String imageUrl) {
+    public CommonHolder4RecyclerView setImageViewImg(@NonNull Context context,
+                                                     @IdRes int imageViewId, String imageUrl) {
         ImageView imageView = getView(imageViewId);
         Glide.with(context).load(imageUrl).into(imageView);
         return this;
     }
 
     /**
-     *
-     * @param clickListener
-     * @param viewIds
+     *监听点击事件
+     * @param clickListener 监听
+     * @param viewIds xml布局容器
      * @return
      */
-    public CommonHolder4RecyclerView setOnClickListener(ListenerWithPosition.OnClickWithPositionListener clickListener, @IdRes int... viewIds) {
+    public CommonHolder4RecyclerView setOnClickListener(
+            ListenerWithPosition.OnClickWithPositionListener clickListener, @IdRes int... viewIds) {
         ListenerWithPosition listener = new ListenerWithPosition(position, this);
         listener.setOnClickListener(clickListener);
         for (int id : viewIds) {

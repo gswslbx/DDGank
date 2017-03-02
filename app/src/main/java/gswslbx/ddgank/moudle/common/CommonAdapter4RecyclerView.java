@@ -25,6 +25,13 @@ public abstract class CommonAdapter4RecyclerView<T> extends RecyclerView.Adapter
         this.layoutId = layoutId;
     }
 
+    /**
+     *加载子布局
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService
@@ -33,18 +40,35 @@ public abstract class CommonAdapter4RecyclerView<T> extends RecyclerView.Adapter
         return new CommonHolder4RecyclerView(mView);
     }
 
-    @Override
+    /**
+     *绑定子布局数据
+     *
+     * @param holder
+     * @param position
+     */
+ @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         CommonHolder4RecyclerView commonHolder = (CommonHolder4RecyclerView) holder;
         commonHolder.position = position;
         convert(commonHolder, mData.get(position));
     }
 
+    /**
+     *获得子布局的数目
+     *
+     * @return
+     */
     @Override
     public int getItemCount() {
         return (mData != null) ? mData.size() : 0;
     }
 
+    /**
+     *抽象的适配器的填充方法
+     *
+     * @param holder ViewHolder
+     * @param t item的内容
+     */
     public abstract void convert(CommonHolder4RecyclerView holder, T t);
 
 }

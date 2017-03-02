@@ -27,8 +27,8 @@ import butterknife.OnClick;
 import gswslbx.ddgank.R;
 import gswslbx.ddgank.moudle.BaseActivity;
 import gswslbx.ddgank.moudle.common.CommonViewPagerAdapter;
-import gswslbx.ddgank.moudle.gank.io.ganks.CategoryFragment;
-import gswslbx.ddgank.moudle.gank.io.ganks.CategoryPresenter;
+import gswslbx.ddgank.moudle.gank.io.ganks.GanksFragment;
+import gswslbx.ddgank.moudle.gank.io.ganks.GanksPresenter;
 import gswslbx.ddgank.moudle.gank.io.search.SearchActivity;
 
 public class GankHomeActivity extends BaseActivity implements GankHomeContract.View {
@@ -75,25 +75,25 @@ public class GankHomeActivity extends BaseActivity implements GankHomeContract.V
         CommonViewPagerAdapter infoPagerAdapter = new CommonViewPagerAdapter(getSupportFragmentManager(), titles);
 
         // 妹子
-        CategoryFragment fuliFragment = CategoryFragment.newInstance("福利");
+        GanksFragment fuliFragment = GanksFragment.newInstance("福利");
         // Android
-        CategoryFragment androidFragment = CategoryFragment.newInstance("Android");
+        GanksFragment androidFragment = GanksFragment.newInstance("Android");
         // iOS
-        CategoryFragment iOSFragment = CategoryFragment.newInstance("iOS");
+        GanksFragment iOSFragment = GanksFragment.newInstance("iOS");
         // 前端
-        CategoryFragment frontFragment = CategoryFragment.newInstance("前端");
+        GanksFragment frontFragment = GanksFragment.newInstance("前端");
         // 休息视频
-        CategoryFragment videoFragment = CategoryFragment.newInstance("休息视频");
+        GanksFragment videoFragment = GanksFragment.newInstance("休息视频");
         // 拓展资源
-        CategoryFragment resFragment = CategoryFragment.newInstance("拓展资源");
+        GanksFragment resFragment = GanksFragment.newInstance("拓展资源");
 
         //将fragment传递给presenter
-        new CategoryPresenter(fuliFragment);
-        new CategoryPresenter(androidFragment);
-        new CategoryPresenter(iOSFragment);
-        new CategoryPresenter(frontFragment);
-        new CategoryPresenter(videoFragment);
-        new CategoryPresenter(resFragment);
+        new GanksPresenter(fuliFragment);
+        new GanksPresenter(androidFragment);
+        new GanksPresenter(iOSFragment);
+        new GanksPresenter(frontFragment);
+        new GanksPresenter(videoFragment);
+        new GanksPresenter(resFragment);
 
         infoPagerAdapter.addFragment(fuliFragment);
         infoPagerAdapter.addFragment(androidFragment);
@@ -107,10 +107,6 @@ public class GankHomeActivity extends BaseActivity implements GankHomeContract.V
         tlHomeCategory.setTabGravity(TabLayout.GRAVITY_FILL);
         vpHomeCategory.setCurrentItem(1);
     }
-
-    /**
-     * @param view
-     */
 
     @OnClick(R.id.ll_home_search)
     public void search(View view) {

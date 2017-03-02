@@ -16,7 +16,7 @@ public class CommonViewPagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> mFragments = new ArrayList<>();
 
     /**
-     *
+     *ViewPager适配器
      * @param fm
      * @param titles
      */
@@ -26,37 +26,23 @@ public class CommonViewPagerAdapter extends FragmentPagerAdapter {
     }
 
     /**
-     *
+     *添加Fragment
      * @param fragment
      */
     public void addFragment(Fragment fragment) {
         mFragments.add(fragment);
     }
 
-    /**
-     *
-     * @param position
-     * @return
-     */
     @Override
     public Fragment getItem(int position) {
         return mFragments.get(position);
     }
 
-    /**
-     *
-     * @return
-     */
     @Override
     public int getCount() {
         return mFragments.size();
     }
 
-    /**
-     *
-     * @param position
-     * @return
-     */
     @Override
     public CharSequence getPageTitle(int position) {
         return title[position];

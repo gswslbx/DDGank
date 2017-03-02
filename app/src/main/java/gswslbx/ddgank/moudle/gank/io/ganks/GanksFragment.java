@@ -23,20 +23,19 @@ import gswslbx.ddgank.moudle.widget.RecyclerViewWithFooter;
  * Created by Gswslbx on 2017/2/16.
  */
 
-public class CategoryFragment extends Fragment implements CategoryContract.View, SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
+public class GanksFragment extends Fragment implements GanksContract.View,
+        SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
 
     @BindView(R.id.recycler_view)
     RecyclerViewWithFooter mRecyclerView;
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
-    private CategoryListAdapter mGankListAdapter;
+    private GanksListAdapter mGankListAdapter;
     private MeiziListAdapter mMeiziListAdapter;
-
-    private CategoryContract.Presenter mPresenter;
+    private GanksContract.Presenter mPresenter;
 
     private int mPage = 1;
-
     private String mCategoryName;
 
 
@@ -63,6 +62,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View,
                 R.color.colorSwipeRefresh6);
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
+        //// TODO: 2017/3/2 视频的处理
         if (getCategoryName().equals("福利")) {
             mMeiziListAdapter = new MeiziListAdapter(getContext());
 
@@ -72,7 +72,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View,
             mRecyclerView.setOnLoadMoreListener(this);
             mRecyclerView.setEmpty();
         } else {
-            mGankListAdapter = new CategoryListAdapter(getContext());
+            mGankListAdapter = new GanksListAdapter(getContext());
 
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             mRecyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.HORIZONTAL));
@@ -97,13 +97,13 @@ public class CategoryFragment extends Fragment implements CategoryContract.View,
     }
 
 
-    public static CategoryFragment newInstance(String mCategoryName) {
-        CategoryFragment categoryFragment = new CategoryFragment();
+    public static GanksFragment newInstance(String mCategoryName) {
+        GanksFragment ganksFragment = new GanksFragment();
         Bundle bundle = new Bundle();
         bundle.putString("mCategoryName", mCategoryName);
 
-        categoryFragment.setArguments(bundle);
-        return categoryFragment;
+        ganksFragment.setArguments(bundle);
+        return ganksFragment;
     }
 
     @Override
@@ -174,7 +174,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View,
     }
 
     @Override
-    public void setPresenter(CategoryContract.Presenter presenter) {
+    public void setPresenter(GanksContract.Presenter presenter) {
         mPresenter = presenter;
     }
 }

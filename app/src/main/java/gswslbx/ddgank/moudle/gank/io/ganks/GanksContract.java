@@ -6,9 +6,9 @@ import gswslbx.ddgank.moudle.BasePresenter;
 import gswslbx.ddgank.moudle.BaseView;
 
 /**
- * CategoryContract
+ * GanksContract
  */
-public interface CategoryContract {
+public interface GanksContract {
 
     interface View extends BaseView<Presenter> {
 

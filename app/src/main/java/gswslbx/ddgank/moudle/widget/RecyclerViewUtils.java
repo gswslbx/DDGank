@@ -4,7 +4,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
+
+import com.orhanobut.logger.Logger;
 
 /**
  * 设置rv manager 类型
@@ -22,7 +23,7 @@ class RecyclerViewUtils {
                 try {
                     super.onLayoutChildren(recycler, state);
                 } catch (IndexOutOfBoundsException e) {
-                    Log.e(TAG, "meet an IndexOutOfBoundsException in RecyclerView");
+                    Logger.e(TAG, "meet an IndexOutOfBoundsException in RecyclerView");
                 }
             }
         };
@@ -36,7 +37,7 @@ class RecyclerViewUtils {
                 try {
                     super.onLayoutChildren(recycler, state);
                 } catch (IndexOutOfBoundsException e) {
-                    Log.e(TAG, "meet an IndexOutOfBoundsException in RecyclerView");
+                    Logger.e(TAG, "meet an IndexOutOfBoundsException in RecyclerView");
                 }
             }
         };
@@ -50,7 +51,7 @@ class RecyclerViewUtils {
                 try {
                     super.onLayoutChildren(recycler, state);
                 } catch (IndexOutOfBoundsException e) {
-                    Log.e(RecyclerViewUtils.TAG, "meet an IndexOutOfBoundsException in RecyclerView");
+                    Logger.e(RecyclerViewUtils.TAG, "meet an IndexOutOfBoundsException in RecyclerView");
                 }
             }
         };

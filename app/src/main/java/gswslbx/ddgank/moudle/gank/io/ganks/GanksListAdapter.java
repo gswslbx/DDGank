@@ -13,32 +13,36 @@ import gswslbx.ddgank.moudle.common.CommonHolder4RecyclerView;
 import gswslbx.ddgank.moudle.common.ListenerWithPosition;
 
 /**
- * CategoryListAdapter
+ * GanksListAdapter
  * Created by Gswslbx on 2017/2/16.
  */
 
-public class CategoryListAdapter extends CommonAdapter4RecyclerView<GanHuo.Result> implements ListenerWithPosition.OnClickWithPositionListener<CommonHolder4RecyclerView> {
+public class GanksListAdapter extends CommonAdapter4RecyclerView<GanHuo.Result> implements ListenerWithPosition.OnClickWithPositionListener<CommonHolder4RecyclerView> {
 
-    public CategoryListAdapter(Context context) {
+    public GanksListAdapter(Context context) {
         super(context, null, R.layout.item_common);
     }
 
     /**
+     *填充子布局数据
      *
-     * @param holder
-     * @param gankResult
+     * @param holder 加载子布局
+     * @param gankResult 填充内容
      */
     @Override
     public void convert(CommonHolder4RecyclerView holder, GanHuo.Result gankResult) {
+        //// TODO: 2017/3/2 webView的实现
+
         if (gankResult != null) {
             holder.setTextViewText(R.id.tv_item_title, gankResult.getDesc() == null ? "unknown" : gankResult.getDesc());
             holder.setTextViewText(R.id.tv_item_publisher, gankResult.getWho() == null ? "unknown" : gankResult.getWho());
             holder.setTextViewText(R.id.tv_item_time, DateUtil.dateFormat(gankResult.getPublishedAt()));
-            holder.setOnClickListener(this, R.id.ll_item);
+            holder.setOnClickListener(this, R.id.ll_item_ganks);
         }
     }
 
     /**
+     *监听item
      *
      * @param v
      * @param position
