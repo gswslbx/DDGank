@@ -70,7 +70,6 @@ public class GankHomePresenter implements GankHomeContract.Presenter {
             // 设置 AppBarLayout 的背景色
             mHomeView.setAppBarLayoutColor(ThemeManage.INSTANCE.getColorPrimary());
 
-            mHomeView.getColorPrimary(ThemeManage.INSTANCE.getColorPrimary());
         }
     }
 

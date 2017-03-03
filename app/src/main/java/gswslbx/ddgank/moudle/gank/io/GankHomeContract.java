@@ -21,8 +21,6 @@ public interface GankHomeContract {
 
         void setAppBarLayoutColor(int appBarLayoutColor);//设置Banner颜色
 
-        int getColorPrimary(int colorPrimary);//
-
 //        void showPermissionsTip();//获取权限提示
 
         Activity getContext();//获得当前上下文

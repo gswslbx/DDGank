@@ -53,7 +53,24 @@ public class GankHomeActivity extends BaseActivity implements GankHomeContract.V
     CoordinatorLayout root;
 
     public GankHomeContract.Presenter mHomePresenter = new GankHomePresenter(this);
-    public int mColorPrimary = R.color.colorPrimary;
+    public int mCurrentPage = 1;
+
+    String[] titles = {"福利", "Android", "iOS", "前端", "休息视频", "拓展资源"};
+    CommonViewPagerAdapter infoPagerAdapter =
+            new CommonViewPagerAdapter(getSupportFragmentManager(), titles);
+
+    // 妹子
+    GanksFragment fuliFragment = GanksFragment.newInstance("福利");
+    // Android
+    GanksFragment androidFragment = GanksFragment.newInstance("Android");
+    // iOS
+    GanksFragment iOSFragment = GanksFragment.newInstance("iOS");
+    // 前端
+    GanksFragment frontFragment = GanksFragment.newInstance("前端");
+    // 休息视频
+    GanksFragment videoFragment = GanksFragment.newInstance("休息视频");
+    // 拓展资源
+    GanksFragment resFragment = GanksFragment.newInstance("拓展资源");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,23 +88,6 @@ public class GankHomeActivity extends BaseActivity implements GankHomeContract.V
     }
 
     private void initView() {
-
-        String[] titles = {"福利", "Android", "iOS", "前端", "休息视频", "拓展资源"};
-        CommonViewPagerAdapter infoPagerAdapter =
-                new CommonViewPagerAdapter(getSupportFragmentManager(), titles);
-
-        // 妹子
-        GanksFragment fuliFragment = GanksFragment.newInstance("福利");
-        // Android
-        GanksFragment androidFragment = GanksFragment.newInstance("Android");
-        // iOS
-        GanksFragment iOSFragment = GanksFragment.newInstance("iOS");
-        // 前端
-        GanksFragment frontFragment = GanksFragment.newInstance("前端");
-        // 休息视频
-        GanksFragment videoFragment = GanksFragment.newInstance("休息视频");
-        // 拓展资源
-        GanksFragment resFragment = GanksFragment.newInstance("拓展资源");
 
         //将fragment传递给presenter
         new GanksPresenter(fuliFragment);
@@ -108,6 +108,23 @@ public class GankHomeActivity extends BaseActivity implements GankHomeContract.V
         tlHomeGanks.setupWithViewPager(vpHomeGanks);
         tlHomeGanks.setTabGravity(TabLayout.GRAVITY_FILL);
         vpHomeGanks.setCurrentItem(1);//默认显示Android资源
+
+        vpHomeGanks.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mCurrentPage = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @OnClick(R.id.ll_home_search)
@@ -133,6 +150,10 @@ public class GankHomeActivity extends BaseActivity implements GankHomeContract.V
                             @Override
                             public void onPaletteLoaded(@Nullable Palette palette) {
                                 mHomePresenter.setThemeColor(palette);
+                                //设置fragment下的下拉刷新主题色
+                                GanksFragment fragment = (GanksFragment) infoPagerAdapter.getItem(mCurrentPage);
+                                fragment.setWaveSwipeRefreshLayoutColor();
+
                             }
                         }))
                 .into(ivHomeBanner);
@@ -142,12 +163,6 @@ public class GankHomeActivity extends BaseActivity implements GankHomeContract.V
     public void setAppBarLayoutColor(int appBarLayoutColor) {
         collapsingToolbar.setContentScrimColor(appBarLayoutColor);
         appbar.setBackgroundColor(appBarLayoutColor);
-    }
-
-    @Override
-    public int getColorPrimary(int colorPrimary) {
-        mColorPrimary = colorPrimary;
-        return mColorPrimary;
     }
 
     //    @Override
