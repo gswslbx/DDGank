@@ -5,5 +5,5 @@ package gswslbx.ddgank.moudle;
  */
 
 public interface BaseView<T> {
-    void setPresenter(T presenter);//使view能操作Presenter的方法
+    void setGanksPresenter(T ganksPresenter);//使view能操作Presenter的方法
 }

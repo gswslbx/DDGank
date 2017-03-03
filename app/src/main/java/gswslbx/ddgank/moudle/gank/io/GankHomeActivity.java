@@ -33,13 +33,13 @@ import gswslbx.ddgank.moudle.gank.io.search.SearchActivity;
 
 public class GankHomeActivity extends BaseActivity implements GankHomeContract.View {
 
-    @BindView(R.id.tl_home_category)
-    TabLayout tlHomeCategory;
+    @BindView(R.id.tl_home_ganks)
+    TabLayout tlHomeGanks;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tv_search)
     TextView tvSearch;
-    @BindView(R.id.ll_home_search)  
+    @BindView(R.id.ll_home_search)
     LinearLayout llHomeSearch;
     @BindView(R.id.iv_home_banner)
     ImageView ivHomeBanner;
@@ -47,12 +47,13 @@ public class GankHomeActivity extends BaseActivity implements GankHomeContract.V
     CollapsingToolbarLayout collapsingToolbar;
     @BindView(R.id.appbar)
     AppBarLayout appbar;
-    @BindView(R.id.vp_home_category)
-    ViewPager vpHomeCategory;
+    @BindView(R.id.vp_home_ganks)
+    ViewPager vpHomeGanks;
     @BindView(R.id.root)
     CoordinatorLayout root;
 
     public GankHomeContract.Presenter mHomePresenter = new GankHomePresenter(this);
+    public int mColorPrimary = R.color.colorPrimary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +73,8 @@ public class GankHomeActivity extends BaseActivity implements GankHomeContract.V
     private void initView() {
 
         String[] titles = {"福利", "Android", "iOS", "前端", "休息视频", "拓展资源"};
-        CommonViewPagerAdapter infoPagerAdapter = new CommonViewPagerAdapter(getSupportFragmentManager(), titles);
+        CommonViewPagerAdapter infoPagerAdapter =
+                new CommonViewPagerAdapter(getSupportFragmentManager(), titles);
 
         // 妹子
         GanksFragment fuliFragment = GanksFragment.newInstance("福利");
@@ -102,10 +104,10 @@ public class GankHomeActivity extends BaseActivity implements GankHomeContract.V
         infoPagerAdapter.addFragment(videoFragment);
         infoPagerAdapter.addFragment(resFragment);
 
-        vpHomeCategory.setAdapter(infoPagerAdapter);
-        tlHomeCategory.setupWithViewPager(vpHomeCategory);
-        tlHomeCategory.setTabGravity(TabLayout.GRAVITY_FILL);
-        vpHomeCategory.setCurrentItem(1);
+        vpHomeGanks.setAdapter(infoPagerAdapter);
+        tlHomeGanks.setupWithViewPager(vpHomeGanks);
+        tlHomeGanks.setTabGravity(TabLayout.GRAVITY_FILL);
+        vpHomeGanks.setCurrentItem(1);//默认显示Android资源
     }
 
     @OnClick(R.id.ll_home_search)
@@ -115,7 +117,7 @@ public class GankHomeActivity extends BaseActivity implements GankHomeContract.V
 
     @Override
     public void showBannerFail(String failMessage, final boolean isRandom) {
-        Snackbar.make(vpHomeCategory, failMessage, Snackbar.LENGTH_LONG).setAction("重试", new View.OnClickListener() {
+        Snackbar.make(vpHomeGanks, failMessage, Snackbar.LENGTH_LONG).setAction("重试", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mHomePresenter.getBanner(isRandom);
@@ -142,9 +144,15 @@ public class GankHomeActivity extends BaseActivity implements GankHomeContract.V
         appbar.setBackgroundColor(appBarLayoutColor);
     }
 
-//    @Override
+    @Override
+    public int getColorPrimary(int colorPrimary) {
+        mColorPrimary = colorPrimary;
+        return mColorPrimary;
+    }
+
+    //    @Override
 //    public void showPermissionsTip() {
-//        Snackbar.make(vpHomeCategory, "需要权限才能保存妹子", Snackbar.LENGTH_LONG).show();
+//        Snackbar.make(vpHomeGanks, "需要权限才能保存妹子", Snackbar.LENGTH_LONG).show();
 //    }
 
     @Override
@@ -154,7 +162,7 @@ public class GankHomeActivity extends BaseActivity implements GankHomeContract.V
 
 //    @Override
 //    public void showMsgSaveSuccess() {
-//        Snackbar.make(vpHomeCategory, "图片保存成功", Snackbar.LENGTH_LONG).setAction("查看", new View.OnClickListener() {
+//        Snackbar.make(vpHomeGanks, "图片保存成功", Snackbar.LENGTH_LONG).setAction("查看", new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                Intent i = new Intent(Intent.ACTION_VIEW, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -165,7 +173,7 @@ public class GankHomeActivity extends BaseActivity implements GankHomeContract.V
 //
 //    @Override
 //    public void showMsgSaveFail() {
-//        Snackbar.make(vpHomeCategory, "图片保存失败", Snackbar.LENGTH_LONG).setAction("重试", new View.OnClickListener() {
+//        Snackbar.make(vpHomeGanks, "图片保存失败", Snackbar.LENGTH_LONG).setAction("重试", new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                mHomePresenter.saveImg(ivHomeBanner.getDrawable());
@@ -175,7 +183,7 @@ public class GankHomeActivity extends BaseActivity implements GankHomeContract.V
 //
 //    @Override
 //    public void showSavingMsgTip() {
-//        Snackbar.make(vpHomeCategory, "正在保存图片...", Snackbar.LENGTH_LONG).show();
+//        Snackbar.make(vpHomeGanks, "正在保存图片...", Snackbar.LENGTH_LONG).show();
 //    }
 
     @OnClick(R.id.iv_home_banner)
@@ -183,8 +191,7 @@ public class GankHomeActivity extends BaseActivity implements GankHomeContract.V
         mHomePresenter.getRandomBanner();
     }
 
-    @Override
-    public void setPresenter(GankHomeContract.Presenter presenter) {
-        mHomePresenter = presenter;
+    public void setGanksPresenter(GankHomeContract.Presenter ganksPresenter) {
+        mHomePresenter = ganksPresenter;
     }
 }

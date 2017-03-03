@@ -13,6 +13,7 @@ import gswslbx.ddgank.moudle.BaseView;
 
 public interface GankHomeContract {
     interface View extends BaseView<Presenter> {
+
         //Banner加载失败
         void showBannerFail(String failMessage, boolean isRandom);
 
@@ -20,26 +21,29 @@ public interface GankHomeContract {
 
         void setAppBarLayoutColor(int appBarLayoutColor);//设置Banner颜色
 
-//        void showPermissionsTip();//
+        int getColorPrimary(int colorPrimary);//
+
+//        void showPermissionsTip();//获取权限提示
 
         Activity getContext();//获得当前上下文
 
-//        void showMsgSaveSuccess();//
+//        void showMsgSaveSuccess();//保存成功提示
 //
-//        void showMsgSaveFail();//
+//        void showMsgSaveFail();//保存失败提示
 //
-//        void showSavingMsgTip();//
+//        void showSavingMsgTip();//保存中提示
+
 
     }
 
     interface Presenter extends BasePresenter {
 
-        void getRandomBanner();//
+        void getRandomBanner();//获得随机的Banner
 
-        void setThemeColor(@Nullable Palette palette);//
+        void setThemeColor(@Nullable Palette palette);//设置主题色
 
-        void getBanner(final boolean isRandom);//
+        void getBanner(final boolean isRandom);//获得Banner
 
-//        void saveImg(Drawable drawable);//
+//        void saveImg(Drawable drawable);//保存图片
     }
 }

@@ -19,13 +19,15 @@ public interface GanksContract {
         //列表item数据获取失败
         void getItemsFail(String failMessage, final int number, final int page, final boolean isRefresh);
 
-        String getCategoryName();//获得所选类别名称
+        String getGanksName();//获得所选类别名称
 
-        void showSwipLoading();//显示刷新效果
+        void showSwipeLoading();//显示刷新效果
 
-        void hideSwipLoading();//停止显示刷新效果
+        void hideSwipeLoading();//停止显示刷新效果
 
         void setLoading();//设置加载
+
+        void setWaveSwipeRefreshLayoutColor();//设置刷新主题色
     }
 
     interface Presenter extends BasePresenter {

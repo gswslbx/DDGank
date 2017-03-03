@@ -33,7 +33,7 @@ public class GankHomePresenter implements GankHomeContract.Presenter {
 
     public GankHomePresenter(GankHomeContract.View homeView) {
         mHomeView = homeView;
-        mHomeView.setPresenter(this);
+        mHomeView.setGanksPresenter(this);
         mContext = homeView.getContext();
         mSubscriptions = new CompositeSubscription();
     }
@@ -59,10 +59,18 @@ public class GankHomePresenter implements GankHomeContract.Presenter {
         if (palette != null) {
             int colorPrimary = App.getInstance().getResources().getColor(R.color.colorPrimary);
             // 把从调色板上获取的主题色保存在内存中
-            ThemeManage.INSTANCE.setColorPrimary(palette.getDarkVibrantColor(colorPrimary));
+//            ThemeManage.INSTANCE.setColorPrimary(palette.getVibrantColor(colorPrimary));
+//            ThemeManage.INSTANCE.setColorPrimary(palette.getDarkVibrantColor(colorPrimary));
+//            ThemeManage.INSTANCE.setColorPrimary(palette.getLightVibrantColor(colorPrimary));
+
+            ThemeManage.INSTANCE.setColorPrimary(palette.getMutedColor(colorPrimary));
+//            ThemeManage.INSTANCE.setColorPrimary(palette.getDarkMutedColor(colorPrimary));
+//            ThemeManage.INSTANCE.setColorPrimary(palette.getLightMutedColor(colorPrimary));
+
             // 设置 AppBarLayout 的背景色
             mHomeView.setAppBarLayoutColor(ThemeManage.INSTANCE.getColorPrimary());
 
+            mHomeView.getColorPrimary(ThemeManage.INSTANCE.getColorPrimary());
         }
     }
 

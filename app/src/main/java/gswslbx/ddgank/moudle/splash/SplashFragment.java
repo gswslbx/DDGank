@@ -110,8 +110,7 @@ public class SplashFragment extends BaseFragment implements SplashContract.View 
         mTvSplashName.setText((CharSequence) object);
     }
 
-    @Override
-    public void setPresenter(SplashContract.Presenter presenter) {
-        mSplashPresenter = presenter;
+    public void setGanksPresenter(SplashContract.Presenter ganksPresenter) {
+        mSplashPresenter = ganksPresenter;
     }
 }

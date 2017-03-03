@@ -65,7 +65,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
         ButterKnife.bind(this);
         initView();
         mFireWork.bindEditText(mEdSearch);
-        setPresenter(mSearchPresenter);
+        setGanksPresenter(mSearchPresenter);
         mSearchPresenter.subscribe();
         getKeyboardAction();
     }
@@ -218,9 +218,8 @@ public class SearchActivity extends BaseActivity implements SearchContract.View,
         mSearchPresenter.search(mEdSearch.getText().toString().trim(), mPage, false);
     }
 
-    @Override
-    public void setPresenter(SearchContract.Presenter presenter) {
-        mSearchPresenter = presenter;
+    public void setGanksPresenter(SearchContract.Presenter ganksPresenter) {
+        mSearchPresenter = ganksPresenter;
     }
 
 }
