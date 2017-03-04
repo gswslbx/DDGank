@@ -15,12 +15,10 @@ import gswslbx.ddgank.moudle.BaseFragment;
  */
 
 public abstract class LazyLoadFragment extends BaseFragment {
-    /**
-     * 视图是否已经初初始化
-     */
-    protected boolean isInit = false;
-    protected boolean isLoad = false;
-    protected boolean isVisible = false;
+
+    protected boolean isInit = false;//视图是否已经初始化
+    protected boolean isLoad = false;//数据是否已经加载
+    protected boolean isVisible = false;//视图是否当前可见
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
