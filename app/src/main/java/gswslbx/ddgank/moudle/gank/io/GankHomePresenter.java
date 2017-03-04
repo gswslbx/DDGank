@@ -1,21 +1,29 @@
 package gswslbx.ddgank.moudle.gank.io;
 
+import android.Manifest;
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.graphics.Palette;
 
 import com.orhanobut.logger.Logger;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import gswslbx.ddgank.R;
 import gswslbx.ddgank.bean.App;
 import gswslbx.ddgank.bean.GanHuo;
 import gswslbx.ddgank.bean.ThemeManage;
+import gswslbx.ddgank.utils.ImageUtil;
 import gswslbx.ddgank.utils.retrofit.DataRetrofit;
 import gswslbx.ddgank.utils.retrofit.DataService;
 import rx.Observable;
 import rx.Observer;
+import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
@@ -126,56 +134,56 @@ public class GankHomePresenter implements GankHomeContract.Presenter {
 
     }
 
-//    @Override
-//    public void saveImg(final Drawable drawable) {
-//        if (drawable == null) {
-//            mHomeView.showMsgSaveFail();
-//            return;
-//        }
-//        mHomeView.showSavingMsgTip();
-//        RxPermissions rxPermissions = new RxPermissions(mContext);
-//        mSubscriptions.add(rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//                .subscribe(new Action1<Boolean>() {
-//                    @Override
-//                    public void call(Boolean aBoolean) {
-//                        if (aBoolean) {
-//                            saveImageToGallery(ImageUtil.drawableToBitmap(drawable));
-//                        } else {
-//                            mHomeView.showPermissionsTip();
-//                        }
-//                    }
-//                }));
-//    }
+    @Override
+    public void saveImg(final Drawable drawable) {
+        if (drawable == null) {
+            mHomeView.showMsgSaveFail();
+            return;
+        }
+        mHomeView.showSavingMsgTip();
+        RxPermissions rxPermissions = new RxPermissions(mContext);
+        mSubscriptions.add(rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(new Action1<Boolean>() {
+                    @Override
+                    public void call(Boolean aBoolean) {
+                        if (aBoolean) {
+                            saveImageToGallery(ImageUtil.drawableToBitmap(drawable));
+                        } else {
+                            mHomeView.showPermissionsTip();
+                        }
+                    }
+                }));
+    }
 
-//    private void saveImageToGallery(final Bitmap bitmap) {
-//        Subscription subscription = Observable.create(new Observable.OnSubscribe<Boolean>() {
-//            @Override
-//            public void call(Subscriber<? super Boolean> subscriber) {
-//                boolean isSaveSuccess = ImageUtil.saveImageToGallery(mContext, bitmap);
-//                subscriber.onNext(isSaveSuccess);
-//            }
-//        }).subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<Boolean>() {
-//                    @Override
-//                    public void onCompleted() {
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(Boolean isSaveSuccess) {
-//                        if (isSaveSuccess) {
-//                            mHomeView.showMsgSaveSuccess();
-//                        } else {
-//                            mHomeView.showMsgSaveFail();
-//                        }
-//                    }
-//                });
-//        mSubscriptions.add(subscription);
-//    }
+    private void saveImageToGallery(final Bitmap bitmap) {
+        Subscription subscription = Observable.create(new Observable.OnSubscribe<Boolean>() {
+            @Override
+            public void call(Subscriber<? super Boolean> subscriber) {
+                boolean isSaveSuccess = ImageUtil.saveImageToGallery(mContext, bitmap);
+                subscriber.onNext(isSaveSuccess);
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Boolean>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Boolean isSaveSuccess) {
+                        if (isSaveSuccess) {
+                            mHomeView.showMsgSaveSuccess();
+                        } else {
+                            mHomeView.showMsgSaveFail();
+                        }
+                    }
+                });
+        mSubscriptions.add(subscription);
+    }
 
 }

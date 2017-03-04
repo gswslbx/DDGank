@@ -1,6 +1,7 @@
 package gswslbx.ddgank.moudle.gank.io;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v7.graphics.Palette;
 
@@ -21,16 +22,15 @@ public interface GankHomeContract {
 
         void setAppBarLayoutColor(int appBarLayoutColor);//设置Banner颜色
 
-//        void showPermissionsTip();//获取权限提示
+        void showPermissionsTip();//获取权限提示
 
         Activity getContext();//获得当前上下文
 
-//        void showMsgSaveSuccess();//保存成功提示
-//
-//        void showMsgSaveFail();//保存失败提示
-//
-//        void showSavingMsgTip();//保存中提示
+        void showMsgSaveSuccess();//保存成功提示
 
+        void showMsgSaveFail();//保存失败提示
+
+        void showSavingMsgTip();//保存中提示
 
     }
 
@@ -42,6 +42,6 @@ public interface GankHomeContract {
 
         void getBanner(final boolean isRandom);//获得Banner
 
-//        void saveImg(Drawable drawable);//保存图片
+        void saveImg(Drawable drawable);//保存图片
     }
 }

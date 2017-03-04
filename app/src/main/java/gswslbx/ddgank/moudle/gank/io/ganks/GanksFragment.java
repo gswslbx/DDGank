@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +15,7 @@ import butterknife.ButterKnife;
 import gswslbx.ddgank.R;
 import gswslbx.ddgank.bean.GanHuo;
 import gswslbx.ddgank.bean.ThemeManage;
+import gswslbx.ddgank.moudle.common.LazyLoadFragment;
 import gswslbx.ddgank.moudle.gank.io.meizi.MeiziListAdapter;
 import gswslbx.ddgank.moudle.widget.OnLoadMoreListener;
 import gswslbx.ddgank.moudle.widget.RecycleViewDivider;
@@ -26,13 +26,13 @@ import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
  * Created by Gswslbx on 2017/2/16.
  */
 
-public class GanksFragment extends Fragment implements GanksContract.View,
+public class GanksFragment extends LazyLoadFragment implements GanksContract.View,
         WaveSwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
 
     @BindView(R.id.recycler_view)
     RecyclerViewWithFooter mRecyclerView;
     @BindView(R.id.swipe_refresh_layout)
-    WaveSwipeRefreshLayout mSwipeRefreshLayout;
+    WaveSwipeRefreshLayout mWaveSwipeRefreshLayout;
 
     private GanksListAdapter mGankListAdapter;
     private MeiziListAdapter mMeiziListAdapter;
@@ -51,15 +51,10 @@ public class GanksFragment extends Fragment implements GanksContract.View,
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
 
         View view = inflater.inflate(R.layout.ganks_frag, container, false);
         ButterKnife.bind(this, view);
-
-        mSwipeRefreshLayout.setColorSchemeColors(Color.WHITE, Color.WHITE);
-        mSwipeRefreshLayout.setOnRefreshListener(this);
-        mSwipeRefreshLayout.setWaveColor(Color.argb(255, 63, 81, 181));//默认主题色
-
-//        mSwipeRefreshLayout.setWaveColor(0xFF000000 + new Random().nextInt(0xFFFFFF));//随机变色
 
         //// TODO: 2017/3/2 视频的处理
         if (getGanksName().equals("福利")) {
@@ -79,8 +74,18 @@ public class GanksFragment extends Fragment implements GanksContract.View,
             mRecyclerView.setOnLoadMoreListener(this);
             mRecyclerView.setEmpty();
         }
-
         return view;
+    }
+
+    @Override
+    public void lazyLoad() {
+
+        mWaveSwipeRefreshLayout.setColorSchemeColors(Color.WHITE, Color.WHITE);
+        mWaveSwipeRefreshLayout.setOnRefreshListener(this);
+        //        mWaveSwipeRefreshLayout.setWaveColor(Color.argb(255, 63, 81, 181));//默认主题色
+        setWaveSwipeRefreshLayoutColor();
+        //        mWaveSwipeRefreshLayout.setWaveColor(0xFF000000 + new Random().nextInt(0xFFFFFF));//随机变色
+
     }
 
     @Override
@@ -111,12 +116,12 @@ public class GanksFragment extends Fragment implements GanksContract.View,
 
     @Override
     public void showSwipeLoading() {
-        mSwipeRefreshLayout.setRefreshing(true);
+        mWaveSwipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
     public void hideSwipeLoading() {
-        mSwipeRefreshLayout.setRefreshing(false);
+        mWaveSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -124,7 +129,7 @@ public class GanksFragment extends Fragment implements GanksContract.View,
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                mSwipeRefreshLayout.setRefreshing(false);
+                mWaveSwipeRefreshLayout.setRefreshing(false);
                 mPage = 1;
                 mGanksPresenter.getItems(10, mPage, true);
             }
@@ -134,7 +139,7 @@ public class GanksFragment extends Fragment implements GanksContract.View,
 
     @Override
     public void setWaveSwipeRefreshLayoutColor(){
-        mSwipeRefreshLayout.setWaveColor(ThemeManage.INSTANCE.getColorPrimary());
+        mWaveSwipeRefreshLayout.setWaveColor(ThemeManage.INSTANCE.getColorPrimary());
     }
 
     @Override
@@ -151,7 +156,7 @@ public class GanksFragment extends Fragment implements GanksContract.View,
     @Override
     public void getItemsFail(String failMessage, final int number, final int page, final boolean isRefresh) {
         if (getUserVisibleHint()) {
-            Snackbar.make(mSwipeRefreshLayout, failMessage, Snackbar.LENGTH_LONG).setAction("重试", new View.OnClickListener() {
+            Snackbar.make(mWaveSwipeRefreshLayout, failMessage, Snackbar.LENGTH_LONG).setAction("重试", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     mGanksPresenter.getItems(number, page, isRefresh);
